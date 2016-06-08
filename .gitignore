@@ -29,3 +29,4 @@
 *.db
 Debug
 *.opendb
+.vs
