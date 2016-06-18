@@ -12,7 +12,7 @@ class Building
 {
 private:
 	// attributes
-	string _companyName;
+	char   *   _companyName;
 	int _floors;
 	int _offices;
 	int _employees;
@@ -21,7 +21,7 @@ private:
 public:
 
 	// constructors
-	inline Building(string companyName, int floors, int offices, int employees, int freeWorkingSeats)
+	inline Building(char  *    companyName, int floors, int offices, int employees, int freeWorkingSeats)
 	{
 		_companyName = companyName;
 		_floors = floors;
@@ -30,7 +30,7 @@ public:
 		_freeWorkingSeats = freeWorkingSeats;
 	}
 
-	inline Building(string companyName)
+	inline Building(char* companyName)
 	{
 		_companyName = companyName;
 		_floors = 0;
@@ -42,8 +42,8 @@ public:
 	// destructor
 	inline ~Building()
 	{
-		// printf("Building destructor called for %s \n", _companyName);
-		cout << "Building destructor called for " << _companyName << endl;
+		 printf("Building destructor called for %s \n",  _companyName);
+		//cout << "Building destructor called for " << _companyName << endl;
 	}
 
 	// getters
@@ -195,6 +195,7 @@ void firstSolution()
 
 void secondSolution()
 {
+	char* test = "asd";
 	array<Building, 3> businessPark =
 	{
 		Building("XYZ Industries", 6, 127, 600, 196),
