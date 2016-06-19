@@ -1,6 +1,6 @@
 #include "Mechanic.h"
-#include "Car.h"
-#include "Man.h"
+// #include "Car.h" 
+// #include "Man.h" 
 
 #include <iostream>
 #include <array>
@@ -58,12 +58,13 @@ int main()
 	Car carToCrash = Car(100);
 
 	Mechanic mechanic;
-	std::cout << "Before crash repair costs: " << mechanic.RepairCost(carToCrash) << std::endl;
+	std::cout << "Before crash repair costs: $" << mechanic.RepairCost(carToCrash) << std::endl;
 	Man manWithCar;
 	manWithCar.CrashCar(carToCrash);
 
-	std::cout << "After crash repair costs: "<< mechanic.RepairCost(carToCrash) << std::endl;
+	std::cout << "After crash repair costs: $"<< mechanic.RepairCost(carToCrash) << std::endl;
 	mechanic.RepairCar(carToCrash);
-	std::cout << "Car after repair costs: " << mechanic.RepairCost(carToCrash) << std::endl;
+	std::cout << "Car after repair costs: $" << mechanic.RepairCost(carToCrash) << std::endl;
+	
 	return 0;
 }

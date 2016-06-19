@@ -1,5 +1,4 @@
 #include "Mechanic.h"
-#include "Car.h"
 
 void Mechanic::RepairCar(Car &car)
 {

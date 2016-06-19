@@ -1,6 +1,6 @@
 #pragma once
+
 #include "Man.h"
-#include "Mechanic.h"
 
 class Car
 {
@@ -12,3 +12,4 @@ public:
 	friend void Man::CrashCar(Car &car);
 	int price;
 };
+
