@@ -11,7 +11,7 @@ public:
 	// copy constructor.
 	Item(const Item &item);
 	Item(long, double newValue);
-	double getValue();
+	double getValue() const;
 	long getKey() const;
 
 	friend class Store;

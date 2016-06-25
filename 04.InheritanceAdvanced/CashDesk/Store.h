@@ -20,7 +20,9 @@ public:
 	long double getTotalValue();
 
 	void operator<<(const long double valueToAdd);
-	char * toString();
+	std::string toString();
 	void changeItemPrice(long code, double price);
+
+	std::string printItems();
 };
 

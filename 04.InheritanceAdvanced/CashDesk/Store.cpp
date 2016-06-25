@@ -1,7 +1,9 @@
-#include "Store.h"
+﻿#include "Store.h"
 
 #include <vector>
 #include <algorithm>
+#include <array>
+#include <sstream>
 
 Store::Store() : Store(0)
 {
@@ -9,10 +11,6 @@ Store::Store() : Store(0)
 
 Store::Store(long double initialValue) : _totalValue(initialValue), given(-1)
 {
-	Item test = Item(1111111, 231.3111);
-
-	// not working ....
-	this->items.push_back(test);
 	this->items.push_back(Item(1111111111, 13.34));
 	this->items.push_back(Item(1111111112, 11.13));
 	this->items.push_back(Item(1111111113, 9.99));
@@ -78,19 +76,19 @@ void Store::operator<<(long double value)
 	this->_totalValue += value;
 }
 
-char * Store::toString()
+std::string Store::toString()
 {
-	char buffer[100];
+	char buffer[200];
 	const char * format = "CandyShop\n "
 		"BIC:12345678\n"
 		"Address: Somewhere in the middle of nowhere\n"
-		"Purchases: 2.2f leva\n"
-		"Given: 2.2f\n"
-		"Change: 2.2f\n";
+		"Purchases: %2.2f leva\n"
+		"Given: %2.2f\n"
+		"Change: %2.2f\n";
 
 	if (given == -1)
 	{
-		return "You should give money first.";
+		return "You should give money first. Press \"G\" to calculate change.";
 	}
 
 	std::sprintf(buffer, format, this->_totalValue, this->given, this->given - this->_totalValue);
@@ -112,4 +110,18 @@ void Store::changeItemPrice(long code, double price)
 	{
 		it->setValue(price);
 	}
+}
+
+std::string Store::printItems()
+{
+	std::stringstream ss;
+
+	for (std::vector<Item>::iterator it = this->items.begin(); it != this->items.end(); it++)
+	{
+		char buffer[100];
+		std::sprintf(buffer, "%d | %2.2f leva.", it->getKey(), it->getValue());
+		ss << buffer << std::endl;
+	}
+
+	return ss.str();
 }

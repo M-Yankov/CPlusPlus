@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(long key, double newValue) : _key(key)
+Item::Item(long key, double newValue) : _key(key), _price(newValue)
 {
 	this->_price = 0;
 	this->_price = newValue;
@@ -10,9 +10,10 @@ Item::Item(long key, double newValue) : _key(key)
 // copy constructor
 Item::Item(const Item & item) : _key(item.getKey())
 {
+	this->setValue(item.getValue());
 }
 
-double Item::getValue()
+double Item::getValue() const
 {
 	return this->_price;
 }
