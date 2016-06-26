@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CashDesk", "CashDesk\CashDe
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PaintObjectTask", "PaintObjectTask\PaintObjectTask.vcxproj", "{A41A11A7-11E4-4857-B228-BED9EB51C843}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BankTask", "BankTask\BankTask.vcxproj", "{41189C1F-30E4-4A18-8CF4-7007CF57910B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,16 @@ Global
 		{A41A11A7-11E4-4857-B228-BED9EB51C843}.Release|x64.Build.0 = Release|x64
 		{A41A11A7-11E4-4857-B228-BED9EB51C843}.Release|x86.ActiveCfg = Release|Win32
 		{A41A11A7-11E4-4857-B228-BED9EB51C843}.Release|x86.Build.0 = Release|Win32
+		{41189C1F-30E4-4A18-8CF4-7007CF57910B}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{41189C1F-30E4-4A18-8CF4-7007CF57910B}.Debug|x64.ActiveCfg = Debug|x64
+		{41189C1F-30E4-4A18-8CF4-7007CF57910B}.Debug|x64.Build.0 = Debug|x64
+		{41189C1F-30E4-4A18-8CF4-7007CF57910B}.Debug|x86.ActiveCfg = Debug|Win32
+		{41189C1F-30E4-4A18-8CF4-7007CF57910B}.Debug|x86.Build.0 = Debug|Win32
+		{41189C1F-30E4-4A18-8CF4-7007CF57910B}.Release|Any CPU.ActiveCfg = Release|Win32
+		{41189C1F-30E4-4A18-8CF4-7007CF57910B}.Release|x64.ActiveCfg = Release|x64
+		{41189C1F-30E4-4A18-8CF4-7007CF57910B}.Release|x64.Build.0 = Release|x64
+		{41189C1F-30E4-4A18-8CF4-7007CF57910B}.Release|x86.ActiveCfg = Release|Win32
+		{41189C1F-30E4-4A18-8CF4-7007CF57910B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
