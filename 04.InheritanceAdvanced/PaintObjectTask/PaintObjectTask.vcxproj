@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C964119A-745F-4F54-B9D3-2FDE396C8E64}</ProjectGuid>
+    <ProjectGuid>{A41A11A7-11E4-4857-B228-BED9EB51C843}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DemoAbstraction</RootNamespace>
+    <RootNamespace>PaintObjectTask</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -142,7 +142,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="PaintObject.cpp" />
+    <ClCompile Include="Size.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Whale.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PaintObject.h" />
+    <ClInclude Include="Size.h" />
+    <ClInclude Include="Whale.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
