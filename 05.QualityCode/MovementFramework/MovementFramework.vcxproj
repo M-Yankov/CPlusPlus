@@ -144,11 +144,15 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="IdentityObject.cpp" />
+    <ClCompile Include="JumpCalculator.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="SurroundEnvironment.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="IdentityObject.h" />
+    <ClInclude Include="JumpCalculator.h" />
+    <ClInclude Include="SurroundEnvironment.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

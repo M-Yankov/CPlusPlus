@@ -1,13 +1,19 @@
 #pragma once
 #include <iostream>
 
-class IdentityObject
+namespace MovementFramework
 {
-protected:
-	unsigned int id;
-	std::string name;
-public:
-	IdentityObject(unsigned int identifier, std::string objectName);
-	unsigned int getIdentifier();
-};
-
+	/// <summary>
+	/// Abstract class includes common attributes.
+	/// </summary>
+	class IdentityObject
+	{
+	protected:
+		unsigned int id;
+		std::string name;
+	public:
+		IdentityObject(unsigned int identifier, std::string objectName);
+		unsigned int getIdentifier();
+		std::string getName();
+	};
+}
