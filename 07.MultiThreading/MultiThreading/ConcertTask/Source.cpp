@@ -25,7 +25,7 @@ std::mutex securityGurad;
 int normalConsoleColor = 7;
 int violetConsoleColor = 13;
 int peopleAtExit = 0;
-
+int timeForExitPerPersonInMs = 20;
 // HANDLE  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 void exitFromConcert(std::string name)
@@ -38,6 +38,8 @@ void exitFromConcert(std::string name)
 	// person pass throw the door exit; 
 	securityGurad.lock();
 	peopleAtExit--;
+
+	_sleep(timeForExitPerPersonInMs);
 	std::printf("%s exits the concert. %7.0d to go. \n", name.c_str(), peopleAtExit);
 	securityGurad.unlock();
 }
@@ -57,11 +59,15 @@ std::string getName(char num)
 	}
 }
 
+/// <summary>
+/// Run this application with x64 configuration.
+/// </summary>
+/// <returns></returns>
 int main()
 {
 	// SetConsoleTextAttribute(hConsole, violetConsoleColor);
 	// person means thread.
-	const int peopleInConcert = 1000; // doesn't work with 10000.
+	const int peopleInConcert = 10000;
 	std::clock_t startTime = std::clock();
 	std::thread people[peopleInConcert];
 
