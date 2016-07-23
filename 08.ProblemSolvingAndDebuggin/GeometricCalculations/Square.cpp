@@ -1,5 +1,7 @@
 #include "Square.h"
 
+using namespace GeometricCalculations;
+
 Square::Square(float sideWidthCm) : side(sideWidthCm)
 {
 }
