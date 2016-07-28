@@ -19,11 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameElement.cpp" />
+    <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Mineral.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameElement.h" />
+    <ClInclude Include="GameMap.h" />
     <ClInclude Include="Mineral.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.md" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7D96B4CB-33A2-4485-A65D-1E644E611C91}</ProjectGuid>
