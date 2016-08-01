@@ -12,6 +12,8 @@
 #include "CellHash.h"
 #include "RandomGenerator.h"
 
+// class Worker;
+
 class GameMap
 {
 private:
@@ -33,6 +35,7 @@ public:
     void placeBaseOnDefaultPosiotion();
     void placeCatapultOnDefaultPosition();
     std::string getMap();
+    friend class Worker;
 };
 
 #endif // !GAMEMAP_h

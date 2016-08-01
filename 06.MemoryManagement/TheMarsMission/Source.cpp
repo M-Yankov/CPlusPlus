@@ -78,7 +78,8 @@
 #include "GameMap.h"
 #include "RandomGenerator.h"
 #include "CellHash.h"
-
+#include "Base.h"
+#include "Worker.h"
 #include <vector>
 #include <exception>
 #include <unordered_set>
@@ -94,5 +95,7 @@ int main()
 
     std::cout << map.getMap() << std::endl;
 
+    Worker worker = Worker(map);
+    worker.FindClosestMineralOnTheMap();
     return 0;
 }

@@ -27,6 +27,7 @@
     <ClCompile Include="Mineral.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Mineral.h" />
     <ClInclude Include="RandomGenerator.h" />
+    <ClInclude Include="Worker.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.md" />
