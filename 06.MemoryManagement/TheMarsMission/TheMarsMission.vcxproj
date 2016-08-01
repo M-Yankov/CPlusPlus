@@ -19,15 +19,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Base.cpp" />
+    <ClCompile Include="Catapult.cpp" />
+    <ClCompile Include="Cell.cpp" />
     <ClCompile Include="GameElement.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Mineral.cpp" />
+    <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base.h" />
+    <ClInclude Include="Catapult.h" />
+    <ClInclude Include="Cell.h" />
+    <ClInclude Include="CellHash.h" />
     <ClInclude Include="GameElement.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Mineral.h" />
+    <ClInclude Include="RandomGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.md" />

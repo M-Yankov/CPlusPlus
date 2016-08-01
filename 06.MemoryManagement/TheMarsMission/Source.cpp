@@ -76,15 +76,21 @@
 /// <returns></returns>
 #include "Mineral.h"
 #include "GameMap.h"
+#include "RandomGenerator.h"
+#include "CellHash.h"
+
 #include <vector>
 #include <exception>
+#include <unordered_set>
 
 int main()
 {
     const int Matrix = 9;
+    const int Mirealscount = 12;
 
     GameMap map = GameMap();
     map.initializeMap(Matrix, Matrix);
+    map.randomizeMinerals(Mirealscount);
 
     std::cout << map.getMap() << std::endl;
 

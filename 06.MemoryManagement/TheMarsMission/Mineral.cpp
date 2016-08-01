@@ -1,6 +1,10 @@
 #include "Mineral.h"
 
-Mineral::Mineral(unsigned char initialValue, char initialChar) : mineralValue(initialValue), GameElement(initialChar)
+Mineral::Mineral() : Mineral(this->defaultValue, this->defaultMineralSymbol)
+{
+}
+
+Mineral::Mineral(unsigned int initialValue, char initialChar) : mineralValue(initialValue), GameElement(initialChar)
 {
 }
 
@@ -9,7 +13,7 @@ Mineral::~Mineral()
     std::cout << "Mineral destroyed." << std::endl;
 }
 
-unsigned char Mineral::getValue()
+unsigned int Mineral::getValue()
 {
     return this->mineralValue;
 }

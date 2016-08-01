@@ -7,11 +7,14 @@
 class Mineral : public GameElement
 {
 private:
-    unsigned char mineralValue;
+    unsigned int mineralValue;
+    static const unsigned int defaultValue = 5;
+    static const char defaultMineralSymbol = 'M';
 public:
-    Mineral(unsigned char initialValue, char initialChar);
+    Mineral();
+    Mineral(unsigned int initialValue, char initialChar);
     ~Mineral();
-    unsigned char getValue();
+    unsigned int getValue();
 };
 
 #endif 

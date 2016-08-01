@@ -2,7 +2,7 @@
 class GameElement
 {
 private:
-     char defaultCharSymbol = 249; // ∙
+     static const char defaultCharSymbol = 249; // ∙
 public:
     GameElement();
     GameElement(char initialSymbol);
