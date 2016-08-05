@@ -9,7 +9,8 @@ The Worker starts from the Base and it's task is to bring all minerals to the ba
 every 3s to a random cell. One move from one cell to another of the worker costs 1s.<br/>
 When the worker is in the base print only the base symbol.<br/>
 If the catapult hits the worker - he is returned to the base. Then the Base loses 1 mineral or 20% 
-of initial health. If the worker holds a mineral while it is hit, then only the mineral is destroyed.  <br/>
+of initial health when there are 0 minerals. <br/>
+If the worker holds a mineral while it is hit, then only the mineral is destroyed.  <br/>
 If the catapult hits just a mineral - nothing happens. The catapult cannot hit directly the Base. <br/>
 
 From the console you will receive N and M one line.
@@ -25,12 +26,13 @@ Your task:
 *   Initial health of the Base is 100.
 *   Worker move costs 1s.
 *   worker can wear only 1 mineral at time.
-*   The catapults fires every 3s.
-*   Print the `Base info` when worker brings mineral or is damage taken.
+*   The catapult fires every 3s.
+*   The catapult and worker should takes its actions in diffrent threads.
+*   Print the `**Base info**` when worker brings mineral or the worker takes damage.
     *   Format "Base X Minerals X Health"  
 *   Implement a logic for get all minerals on the map. (Don't waste moves).
 *   Print the map after each move of worker and after each shot of catapult.
-*   Use weak point for Base and Worker holds minerals.
+*   Use  weak (smart) pointer for Base and Worker holds minerals.
     *   Base symbol - B  :white_check_mark:
     *   Worker symbol - O 
     *   Empty cell - `·`  (middle dot char code 250)  :white_check_mark:
@@ -41,7 +43,7 @@ Your task:
 *   Clear console before print.
 *   Implement logic for random fire of catapult.
 *   The game ends when all minerals are collected or the base is destroyed.
-*   When game is finished print `Base info`.
+*   When game is finished print `**Base info**`.
 
 Sample Input:
 4 4
@@ -77,5 +79,5 @@ B · · M
 · · · M
 · · M ·
 M · · <
-</pre>
 Base: 1 Minerals 100 health
+</pre>
