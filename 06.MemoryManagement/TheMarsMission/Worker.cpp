@@ -96,3 +96,28 @@ std::vector<Cell> Worker::makePathToCell(Cell & cell)
 
     return path;
 }
+
+void Worker::pickUpMineral(Mineral & mineral)
+{
+    auto ptr = std::make_shared<Mineral>(mineral);
+    this->mineral = ptr;
+}
+
+Mineral Worker::throwMineral()
+{
+    Mineral mineralToThrow = *this->mineral._Get();
+    this->mineral.~weak_ptr();
+    return mineralToThrow;
+}
+
+Cell Worker::getPosition()
+{
+    return Cell(this->row, this->column);
+}
+
+void Worker::setPosition(unsigned int newRow, unsigned int newColumn)
+{
+    this->row = newRow;
+    this->column = newColumn;
+}
+
