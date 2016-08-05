@@ -93,9 +93,20 @@ int main()
     map.initializeMap(Matrix, Matrix);
     map.randomizeMinerals(Mirealscount);
 
-    std::cout << map.getMap() << std::endl;
+    std::cout << map.getMap();
 
     Worker worker = Worker(map);
-    worker.FindClosestMineralOnTheMap();
+    Cell mineralCell = worker.findClosestMineralOnTheMap();
+
+    std::cout << "Closest mineral: " << mineralCell.row << ", " << mineralCell.column << std::endl;
+
+    std::vector<Cell> path = worker.makePathToCell(mineralCell);
+
+    std::cout << "Path: " << std::endl;
+    for (Cell & cell : path)
+    {
+        std::cout << cell.row << " " << cell.column << std::endl;
+    }
+
     return 0;
 }

@@ -17,7 +17,8 @@ public:
     Worker(GameMap & initialGameMap);
     Worker(unsigned int initialRow, unsigned int initialColumn, char symbol, GameMap & initialGameMap);
     ~Worker();
-    void FindClosestMineralOnTheMap();
+    Cell findClosestMineralOnTheMap();
+    std::vector<Cell> makePathToCell(Cell & cell);
 };
 
 #endif // !WORKER_h
