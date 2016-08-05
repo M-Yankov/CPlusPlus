@@ -23,6 +23,7 @@
     <ClCompile Include="Catapult.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="GameElement.cpp" />
+    <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Mineral.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="Cell.h" />
     <ClInclude Include="CellHash.h" />
     <ClInclude Include="GameElement.h" />
+    <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Mineral.h" />
     <ClInclude Include="RandomGenerator.h" />
