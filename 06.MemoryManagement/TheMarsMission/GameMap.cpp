@@ -113,3 +113,13 @@ std::string GameMap::getMap()
     return ss.str();
 }
 
+GameElement GameMap::at(int row, int column)
+{
+    return this->mapElements[row][column];
+}
+
+GameElement GameMap::at(const Cell & cell)
+{
+    return this->mapElements[cell.row][cell.column];
+}
+

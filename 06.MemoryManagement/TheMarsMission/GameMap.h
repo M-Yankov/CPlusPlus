@@ -35,6 +35,8 @@ public:
     void placeBaseOnDefaultPosiotion();
     void placeCatapultOnDefaultPosition();
     std::string getMap();
+    GameElement at(int row, int column);
+    GameElement at(const Cell & cell);
     friend class Worker;
 };
 
