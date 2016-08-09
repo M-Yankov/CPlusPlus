@@ -13,5 +13,10 @@ RandomGenerator::~RandomGenerator()
 
 int RandomGenerator::getRandomNumber(int min, int max, bool includeMax)
 {
+    if (min == max)
+    {
+        return min;
+    }
+
     return std::rand() % ((max - min) + includeMax) + min;
 }
