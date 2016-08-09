@@ -25,7 +25,7 @@ Your task:
     *   Each start of application minerals should be placed on different cells.  :white_check_mark:
 *   Initial health of the Base is 100.
 *   Worker move costs 1s.
-*   worker can wear only 1 mineral at time.
+*   worker can wear only 1 mineral at time. :white_check_mark:
 *   The catapult fires every 3s.
 *   The catapult and worker should takes its actions in diffrent threads.
 *   Print the `**Base info**` when worker brings mineral or the worker takes damage.
@@ -33,21 +33,23 @@ Your task:
 *   Implement a logic for get all minerals on the map. (Don't waste moves).
 *   Print the map after each move of worker and after each shot of catapult.
 *   Use  weak (smart) pointer for Base and Worker holds minerals.
-    *   Base symbol - B  :white_check_mark:
-    *   Worker symbol - O 
+    *   Base symbol - `B`  :white_check_mark:
+    *   Worker symbol - `O` :white_check_mark:
     *   Empty cell - `·`  (middle dot char code 250)  :white_check_mark:
-    *   Mineral symbol - M  :white_check_mark:
-    *   Catapult strikes symbol - X
-    *   Catapult symbol - <  :white_check_mark:
+    *   Mineral symbol - `M`  :white_check_mark:
+    *   Catapult strikes symbol - `X` :white_check_mark: 
+    *   Catapult symbol - `<`  :white_check_mark:
     *   Split cells with one space  :white_check_mark:
 *   Clear console before print.
-*   Implement logic for random fire of catapult.
+*   Implement logic for random fire of catapult. :white_check_mark:
 *   The game ends when all minerals are collected or the base is destroyed.
 *   When game is finished print `**Base info**`.
 
 Sample Input:
+<pre>
 4 4
 5
+</pre>
 
 Sample output:
 <pre>
