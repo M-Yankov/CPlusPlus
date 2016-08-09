@@ -97,10 +97,9 @@ std::vector<Cell> Worker::makePathToCell(Cell & cell)
     return path;
 }
 
-void Worker::pickUpMineral(Mineral & mineral)
+void Worker::pickUpMineral(std::shared_ptr<Mineral> sharedPointer)
 {
-    auto ptr = std::make_shared<Mineral>(mineral);
-    this->mineral = ptr;
+    this->mineral = sharedPointer;
 }
 
 Mineral Worker::throwMineral()

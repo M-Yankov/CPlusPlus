@@ -21,7 +21,7 @@ public:
     ~Worker();
     Cell findClosestMineralOnTheMap();
     std::vector<Cell> makePathToCell(Cell & cell);
-    void pickUpMineral(Mineral & mineral);
+    void pickUpMineral(std::shared_ptr<Mineral> sharedPointer);
     Mineral throwMineral();
     Cell getPosition();
     void setPosition(unsigned int newRow, unsigned int newColumn);
