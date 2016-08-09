@@ -14,7 +14,6 @@ void GameEngine::moveWorker(Worker & worker)
     std::vector<Cell> path = worker.makePathToCell(mineralCell);
 
     bool workerReachedMineral;
-    Mineral mineral;
 
     workerReachedMineral = false;
     for (Cell & cell : path)
@@ -25,9 +24,9 @@ void GameEngine::moveWorker(Worker & worker)
         if (mineralCell.row == cell.row && mineralCell.column == cell.column &&
             this->gameMap.at(mineralCell).symbol == 'M')
         {
-            mineral = Mineral();
+            this->sharedPointerMineral = std::shared_ptr<Mineral>(new Mineral());
             workerReachedMineral = true;
-            worker.pickUpMineral(mineral);
+            worker.pickUpMineral(this->sharedPointerMineral);
         }
 
         if (workerPosition.row != 0 || workerPosition.column != 0)
@@ -38,32 +37,24 @@ void GameEngine::moveWorker(Worker & worker)
         this->gameMap.setItem(cell.row, cell.column, worker);
         std::cout << gameMap.getMap() << std::endl;
     }
-    
-    // TODO: Learn this!
-    std::shared_ptr<Mineral> shared = std::shared_ptr<Mineral>(&mineral);
-    std::weak_ptr<Mineral> weak = shared;
-    std::weak_ptr<Mineral> weak2 = shared;
-    std::shared_ptr<Mineral> shared2 = shared;
-    if (workerReachedMineral)
+}
+
+void GameEngine::strikeWithCatapult(Catapult & catapult, Worker & worker)
+{
+    Cell workerCell = worker.getPosition();
+    Cell strikeCell = catapult.getCellToStrike(workerCell.row, workerCell.row, workerCell.column, workerCell.column);
+
+    // TODO: X 
+    // The worker is hit.
+    if (this->gameMap.at(strikeCell.row, strikeCell.column).symbol == 'O')
     {
-        worker.pickUpMineral(mineral);
+        std::cout << worker.mineral.expired() << std::endl; 
+        this->sharedPointerMineral.reset();
+        std::cout << worker.mineral.expired() << std::endl;
     }
-
-    // TODO: pass shared pointer to worker
-    // * pass shared pointer to catapult
-    // catapult can reset the value when it is hidded;
-    std::cout << worker.mineral._Get()->getValue() << std::endl;
-    std::cout << shared->getValue() << std::endl;
-    std::cout << weak._Get()->getValue() << std::endl;
-    std::cout << std::boolalpha << weak.expired() << std::endl;
-
-    shared2 = nullptr;
-    shared = nullptr;
-    //shared.reset();
-
-    std::cout << std::boolalpha << weak.expired() << std::endl;
-    std::cout << weak._Get()->getValue() << std::endl;
-
+    
+    this->gameMap.setItem(strikeCell.row, strikeCell.column, GameElement('X'));
+    std::cout << this->gameMap.getMap() << std::endl;
 }
 
 void GameEngine::run(int mapRows, int mapColumns, unsigned int mineralsCount)
@@ -74,8 +65,10 @@ void GameEngine::run(int mapRows, int mapColumns, unsigned int mineralsCount)
     std::cout << this->gameMap.getMap();
 
     Worker worker = Worker(this->gameMap);
+    Catapult catapult = Catapult();
 
     std::cout << "\n\n\n";
 
     this->moveWorker(worker);
+    this->strikeWithCatapult(catapult, worker);
 }
