@@ -123,3 +123,13 @@ GameElement GameMap::at(const Cell & cell)
     return this->mapElements[cell.row][cell.column];
 }
 
+int GameMap::getRows()
+{
+    return this->mapRows;
+}
+
+int GameMap::getColumns()
+{
+    return this->mapColumns;
+}
+

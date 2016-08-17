@@ -61,7 +61,7 @@ std::vector<Cell> Worker::makePathToCell(Cell & cell)
     std::vector<Cell> path;
 
     int colsLength = std::abs((int)this->column - cell.column);
-    bool isRightDirection = (cell.column - this->column) > 0;
+    bool isRightDirection = (cell.column - (int)this->column) > 0;
 
     for (int i = 0; i < colsLength; i++)
     {
@@ -78,7 +78,7 @@ std::vector<Cell> Worker::makePathToCell(Cell & cell)
     }
 
     int rowsLength = std::abs((int)this->row - cell.row);
-    bool isUpDirection = (cell.row - this->row) > 0;
+    bool isUpDirection = (cell.row - (int)this->row) > 0;
 
     for (int i = 0; i < rowsLength; i++)
     {

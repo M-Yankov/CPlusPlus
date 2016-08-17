@@ -16,6 +16,7 @@ private:
     GameMap gameMap;
 public:
     GameEngine();
+    GameEngine(GameMap & map);
     ~GameEngine();
     void moveWorker(Worker & worker);
     void strikeWithCatapult(Catapult & catapult, Worker & worker);

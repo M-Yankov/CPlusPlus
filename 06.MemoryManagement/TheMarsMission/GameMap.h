@@ -37,6 +37,8 @@ public:
     std::string getMap();
     GameElement at(int row, int column);
     GameElement at(const Cell & cell);
+    int getRows();
+    int getColumns();
     friend class Worker;
 };
 
