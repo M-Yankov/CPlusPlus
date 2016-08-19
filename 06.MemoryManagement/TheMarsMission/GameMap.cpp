@@ -100,14 +100,20 @@ std::string GameMap::getMap()
     }
 
     std::stringstream ss;
+    int currentRow = 0;
+    int length = this->mapElements.size();
     for (std::vector<GameElement> row : this->mapElements)
     {
+        currentRow++;
         for (GameElement columnCell : row)
         {
             ss << columnCell.symbol << " ";
         }
 
-        ss << std::endl;
+        if (currentRow != length)
+        {
+            ss << std::endl;
+        }
     }
 
     return ss.str();
