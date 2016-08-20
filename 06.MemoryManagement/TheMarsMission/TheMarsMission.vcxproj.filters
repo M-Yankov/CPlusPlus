@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Printers">
+      <UniqueIdentifier>{d9e57e07-b111-4081-af31-679367487cb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Printers">
+      <UniqueIdentifier>{f8fd5725-fb31-445b-b312-db9cd00934d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -45,6 +51,12 @@
     <ClCompile Include="GameEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ConsolePrinter.cpp">
+      <Filter>Source Files\Printers</Filter>
+    </ClCompile>
+    <ClCompile Include="FilePrinter.cpp">
+      <Filter>Source Files\Printers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mineral.h">
@@ -76,6 +88,15 @@
     </ClInclude>
     <ClInclude Include="GameEngine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BasePrinter.h">
+      <Filter>Header Files\Printers</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsolePrinter.h">
+      <Filter>Header Files\Printers</Filter>
+    </ClInclude>
+    <ClInclude Include="FilePrinter.h">
+      <Filter>Header Files\Printers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

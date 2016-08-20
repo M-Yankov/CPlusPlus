@@ -1,24 +1,18 @@
 #include "GameEngine.h"
 
-std::ofstream myfile;
-
-GameEngine::GameEngine() : GameEngine(GameMap(), Base())
+GameEngine::GameEngine() : GameEngine(GameMap(), Base(), new ConsolePrinter())
 {
-    myfile.open("test.txt");
-    /*std::locale mylocale("en_US");
-    myfile.imbue(mylocale);*/
-    //std::setlocale(LC_ALL, "en_US.UTF-8");
+    // TODO: extract this
     std::setlocale(LC_ALL, "russian");
-   
 }
 
-GameEngine::GameEngine(GameMap & map, Base & base) : gameMap(map), gameBase(base)
+GameEngine::GameEngine(GameMap & map, Base & base, BasePrinter * outputPrinter) : gameMap(map), gameBase(base)
 {
+    this->printer = std::unique_ptr<BasePrinter>(outputPrinter);
 }
 
 GameEngine::~GameEngine()
 {
-    myfile.close();
 }
 
 void GameEngine::moveWorker(Worker & worker)
@@ -47,10 +41,11 @@ void GameEngine::moveWorker(Worker & worker)
                 this->gameMap.setItem(workerPosition.row, workerPosition.column, GameElement());
             }
 
+
             this->gameMap.setItem(cell.row, cell.column, worker);
-             myfile << gameMap.getMap() << std::endl << std::endl;
-            // std::cout << gameMap.getMap() << std::endl << std::endl;
-            
+             
+            this->printer->writeLine(gameMap.getMap());
+            this->printer->writeLine();
         }
 
         if (workerReachedMineral)
@@ -82,12 +77,12 @@ void GameEngine::moveWorker(Worker & worker)
                     this->mineralsCount--;
                 }
 
-                //std::cout << this->gameMap.getMap() << std::endl << std::endl;
-                 myfile << this->gameMap.getMap() << std::endl << std::endl;
+                this->printer->writeLine(this->gameMap.getMap());
+                this->printer->writeLine();
             }
 
-            // std::cout << this->gameBase.toString() << std::endl << std::endl;
-            myfile << this->gameBase.toString() << std::endl << std::endl;
+            this->printer->writeLine(this->gameBase.toString());
+            this->printer->writeLine();
         }
     }
 }
@@ -109,8 +104,7 @@ void GameEngine::strikeWithCatapult(Catapult & catapult, Worker & worker)
     }
 
     this->gameMap.setItem(strikeCell.row, strikeCell.column, GameElement('X'));
-    // std::cout << this->gameMap.getMap() << std::endl;
-     myfile << this->gameMap.getMap() << std::endl;
+     this->printer->writeLine(this->gameMap.getMap());
 }
 
 void GameEngine::run(int mapRows, int mapColumns, unsigned int mineralsCount)
@@ -122,10 +116,12 @@ void GameEngine::run(int mapRows, int mapColumns, unsigned int mineralsCount)
 
     // unnecessary
     this->gameMap.setItem(0, 0, this->gameBase);
-    myfile << this->gameMap.getMap();
-    myfile << "\n\n\n";
-  /*  std::cout << this->gameMap.getMap();
-    std::cout << "\n\n\n";*/
+    this->printer->writeLine(this->gameMap.getMap());
+
+    for (size_t i = 0; i < 3; i++)
+    {
+        this->printer->writeLine();
+    }
 
     Worker worker = Worker(this->gameMap);
     Catapult catapult = Catapult();
