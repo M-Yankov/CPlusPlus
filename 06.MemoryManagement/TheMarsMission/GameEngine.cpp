@@ -15,6 +15,7 @@ GameEngine::GameEngine(GameEngine & gameEngine) : GameEngine(gameEngine.gameMap,
 
 GameEngine::GameEngine(GameMap & map, Base & base, BasePrinter * outputPrinter) : gameMap(map), gameBase(base)
 {
+    // TODO: extract russian.
     std::setlocale(LC_ALL, "russian");
     this->printer = std::unique_ptr<BasePrinter>(outputPrinter);
 }
