@@ -4,6 +4,7 @@
 #include <vector>
 #include <sstream>
 #include <unordered_set>
+#include <mutex>
 
 #include "Mineral.h"
 #include "Base.h"
@@ -11,8 +12,6 @@
 #include "Catapult.h"
 #include "CellHash.h"
 #include "RandomGenerator.h"
-
-// class Worker;
 
 class GameMap
 {
@@ -25,10 +24,13 @@ private:
     int mapRows;
     int mapColumns;
     RandomGenerator * randomGenerator;
+    std::mutex locker;
 public:
     GameMap();
+    GameMap(GameMap & gameMap);
     GameMap(RandomGenerator & generator);
     ~GameMap();
+    void operator=(GameMap & gameMap);
     void setItem(int row, int column, GameElement & gameElement);
     void initializeMap(int rows, int columns, bool useDefaultPositonsForBaseAndCatapult = true);
     void randomizeMinerals(unsigned int mineralsCount);

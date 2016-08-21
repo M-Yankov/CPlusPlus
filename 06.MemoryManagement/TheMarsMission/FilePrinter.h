@@ -12,10 +12,11 @@ private:
     std::ofstream fileStream;
 public:
     FilePrinter(std::string filename);
+    FilePrinter(FilePrinter & filerPrinter);
     ~FilePrinter();
 
     // Inherited via BasePrinter
-    virtual void writeLine(std::string output = "") override;
+    virtual void writeLine(std::string output = "", bool clearScreen = true) override;
     virtual void write(std::string output = "") override;
 };
 

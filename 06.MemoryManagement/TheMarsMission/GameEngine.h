@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <memory>
-
+#include <thread>
 #include <iostream>
 #include <fstream>
 #include <clocale>
@@ -22,16 +22,18 @@ private:
     std::shared_ptr<BasePrinter> printer;
     GameMap gameMap;
     Base gameBase;
-    bool isGameEnded;
     int mineralsCount;
+    bool isGameEnded();
 public:
     GameEngine();
+    GameEngine(GameEngine & gameEngine);
     GameEngine(GameMap & map, Base & base, BasePrinter * outputPrinter);
     ~GameEngine();
+    void operator=(GameEngine & engine);
+    void setMineralsCount(int mineralsCount);
     void moveWorker(Worker & worker);
     void strikeWithCatapult(Catapult & catapult, Worker & worker);
     void run(int mapRows, int mapColumns, unsigned int mineralsCount);
-    void setMineralsCount(int mineralsCount);
 };
 
 #endif // !GAMEENGINE_h

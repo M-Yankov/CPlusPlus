@@ -23,5 +23,6 @@ int RandomGenerator::getRandomNumber(int min, int max, bool includeMax)
         throw "Min should be less than max value.";
     }
 
-    return std::rand() % ((max - min) + includeMax) + min;
+    int result = std::rand() % ((max - min) + includeMax) + min;
+    return result;
 }

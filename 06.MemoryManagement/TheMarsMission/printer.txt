@@ -1,0 +1,114 @@
+B · · · · · · · · 
+· M · · · · · · · 
+· · · · · · · · · 
+· M · · M · · M · 
+· · · · M · · · · 
+· · M · · · · M · 
+· · · · · M · · · 
+· · · M · M · · · 
+M · · · · · · M < 
+
+
+
+B O · · · · · · · 
+· X · · · · · · · 
+· · · · · · · · · 
+· M · · M · · M · 
+· · · · M · · · · 
+· · M · · · · M · 
+· · · · · M · · · 
+· · · M · M · · · 
+M · · · · · · M < 
+
+B O · · · · · · · 
+· X · · · · · · · 
+· · · · · · · · · 
+· M · · M · · M · 
+· · · · M · · · · 
+· · M · · · · M · 
+· · · · · M · · · 
+· · · M · M · · · 
+M · · · · · · M < 
+
+B · · · · · · · · 
+· O · · · · · · · 
+· · · · · · · · · 
+· M · · M · · M · 
+· · · · M · · · · 
+· · M · · · · M · 
+· · · · · M · · · 
+· · · M · M · · · 
+M · · · · · · M < 
+
+B · · · · · · · · 
+· · · · · · · · · 
+· O · · · · · · · 
+· M · · M · · M · 
+· · · · M · · · · 
+· · M · · · · M · 
+· · · · · M · · · 
+· · · M · M · · · 
+M · · · · · · M < 
+
+B · · · · · · · · 
+· · · · · · · · · 
+· · · · · · · · · 
+· O · · M · · M · 
+· · · · M · · · · 
+· · M · · · · M · 
+· · · · · M · · · 
+· · · M · M · · · 
+M · · · · · · M < 
+
+B · · · · · · · · 
+· · · · · · · · · 
+· O · · · · · · · 
+· · · · M · · M · 
+· · · · M · · · · 
+· · M · · · · M · 
+· · · · · M · · · 
+· · · M · M · · · 
+M · · · · · · M < 
+
+B · · · · · · · · 
+· · · · · · · · · 
+· · · · · · · · · 
+· · · · M · · M · 
+· · · · M · · · · 
+· · M · · · · M · 
+· · · · · M · · · 
+· · · M · M · · · 
+M · · · · · · M < 
+
+Base: 1 Minerals 100 Health
+
+B O · · · · · · · 
+· · · · · · · · · 
+· · · · · · · · · 
+· · · · M · · M · 
+· · · · M · · · · 
+· · M · · · · M · 
+· · · · · M · · · 
+· · · M · M · · · 
+M · · · · · · M < 
+
+B · O · · · · · · 
+· · · · · · · · · 
+· · · · · · · · · 
+· · · · M · · M · 
+· · · · M · · · · 
+· · M · · · · M · 
+· · · · · M · · · 
+· · · M · M · · · 
+M · · · · · · M < 
+
+B · · O · · · · · 
+· · · · · · · · · 
+· · · · · · · · · 
+· · · · M · · M · 
+· · · · M · · · · 
+· · M · · · · M · 
+· · · · · M · · · 
+· · · M · M · · · 
+M · · · · · · M < 
+

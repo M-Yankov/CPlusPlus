@@ -1,13 +1,21 @@
 #include "GameEngine.h"
 
+bool GameEngine::isGameEnded()
+{
+    return this->mineralsCount <= 0 || this->gameBase.getHealth() <= 0;
+}
+
 GameEngine::GameEngine() : GameEngine(GameMap(), Base(), new ConsolePrinter())
 {
-    // TODO: extract this
-    std::setlocale(LC_ALL, "russian");
+}
+
+GameEngine::GameEngine(GameEngine & gameEngine) : GameEngine(gameEngine.gameMap, gameEngine.gameBase, gameEngine.printer.get())
+{
 }
 
 GameEngine::GameEngine(GameMap & map, Base & base, BasePrinter * outputPrinter) : gameMap(map), gameBase(base)
 {
+    std::setlocale(LC_ALL, "russian");
     this->printer = std::unique_ptr<BasePrinter>(outputPrinter);
 }
 
@@ -15,17 +23,37 @@ GameEngine::~GameEngine()
 {
 }
 
+void GameEngine::operator=(GameEngine & engine)
+{
+    this->gameBase = engine.gameBase;
+    this->gameMap = engine.gameMap;
+    this->printer = engine.printer;
+    this->mineralsCount = engine.mineralsCount;
+    this->sharedPointerMineral = engine.sharedPointerMineral;
+}
+
+void GameEngine::setMineralsCount(int mineralsCount)
+{
+    this->mineralsCount = mineralsCount;
+}
+
 void GameEngine::moveWorker(Worker & worker)
 {
     while (this->mineralsCount > 0)
     {
         Cell mineralCell = worker.findClosestMineralOnTheMap();
+
+        if (mineralCell.row < 0 || mineralCell.row < 0)
+        {
+            return;
+        }
+
         std::vector<Cell> path = worker.makePathToCell(mineralCell);
 
         bool workerReachedMineral = false;
         for (Cell & cell : path)
         {
-            Cell workerPosition = worker.getPosition();
+            Cell workerOldPosition = worker.getPosition();
             worker.setPosition(cell.row, cell.column);
 
             if (mineralCell.row == cell.row && mineralCell.column == cell.column &&
@@ -36,18 +64,19 @@ void GameEngine::moveWorker(Worker & worker)
                 worker.pickUpMineral(this->sharedPointerMineral);
             }
 
-            if (workerPosition.row != 0 || workerPosition.column != 0)
+            if (workerOldPosition.row != 0 || workerOldPosition.column != 0)
             {
-                this->gameMap.setItem(workerPosition.row, workerPosition.column, GameElement());
+                this->gameMap.setItem(workerOldPosition.row, workerOldPosition.column, GameElement());
             }
 
-
             this->gameMap.setItem(cell.row, cell.column, worker);
-             
+
+            _sleep(1000);
             this->printer->writeLine(gameMap.getMap());
-            this->printer->writeLine();
+            this->printer->writeLine("", false);
         }
 
+        // path back to base.
         if (workerReachedMineral)
         {
             // reverse the path
@@ -58,9 +87,13 @@ void GameEngine::moveWorker(Worker & worker)
 
             // add base cell
             path.push_back(Cell(0, 0));
+            int counter = 0;
+            int end = path.size();
 
             for (Cell & cell : path)
             {
+                counter++;
+
                 Cell workerPosition = worker.getPosition();
                 worker.setPosition(cell.row, cell.column);
 
@@ -77,34 +110,47 @@ void GameEngine::moveWorker(Worker & worker)
                     this->mineralsCount--;
                 }
 
+                _sleep(1000);
+
                 this->printer->writeLine(this->gameMap.getMap());
-                this->printer->writeLine();
+                this->printer->writeLine("", false);
             }
 
-            this->printer->writeLine(this->gameBase.toString());
-            this->printer->writeLine();
+            this->printer->writeLine(this->gameBase.toString(), false);
+            this->printer->writeLine("", false);
         }
     }
 }
 
 void GameEngine::strikeWithCatapult(Catapult & catapult, Worker & worker)
 {
-    Cell workerCell = worker.getPosition();
-    Cell strikeCell = catapult.getCellToStrike(0, this->gameMap.getRows(), 0, this->gameMap.getColumns());
-    while (strikeCell.column == 0 && strikeCell.row == 0)
+    while (!this->isGameEnded())
     {
-        strikeCell = catapult.getCellToStrike(0, this->gameMap.getRows(), 0, this->gameMap.getColumns());
-    }
+        Cell workerCell = worker.getPosition();
+        Cell strikeCell = catapult.getCellToStrike(0, this->gameMap.getRows(), 0, this->gameMap.getColumns());
+        while (strikeCell.column == 0 && strikeCell.row == 0)
+        {
+            strikeCell = catapult.getCellToStrike(0, this->gameMap.getRows(), 0, this->gameMap.getColumns());
+        }
 
-    // TODO: X 
-    // The worker is hit.
-    if (this->gameMap.at(strikeCell.row, strikeCell.column).symbol == 'O')
-    {
-        this->sharedPointerMineral.reset();
-    }
+        // TODO: X 
+        // The worker is hit.
+        if (this->gameMap.at(strikeCell.row, strikeCell.column).symbol == 'O')
+        {
+            // TODO: more logic here !
+            /*this->sharedPointerMineral.reset();
+            this->mineralsCount--;*/
+        }
 
-    this->gameMap.setItem(strikeCell.row, strikeCell.column, GameElement('X'));
-     this->printer->writeLine(this->gameMap.getMap());
+        GameElement oldGameElement = this->gameMap.at(strikeCell);
+        this->gameMap.setItem(strikeCell.row, strikeCell.column, GameElement('X'));
+
+        this->printer->writeLine(this->gameMap.getMap());
+        this->printer->writeLine("", false);
+
+        this->gameMap.setItem(strikeCell.row, strikeCell.column, oldGameElement);
+        _sleep(3000);
+    }
 }
 
 void GameEngine::run(int mapRows, int mapColumns, unsigned int mineralsCount)
@@ -120,17 +166,22 @@ void GameEngine::run(int mapRows, int mapColumns, unsigned int mineralsCount)
 
     for (size_t i = 0; i < 3; i++)
     {
-        this->printer->writeLine();
+        this->printer->writeLine("", false);
     }
 
-    Worker worker = Worker(this->gameMap);
-    Catapult catapult = Catapult();
+    _sleep(1000);
 
+    Worker worker = Worker(this->gameMap);
+
+
+    std::thread workerThread([&] { this->moveWorker(worker); });
+    std::thread catapultThread([&] { this->strikeWithCatapult(Catapult(), worker); });
+
+    workerThread.join();
+    catapultThread.join();
+
+    /*
     this->moveWorker(worker);
     this->strikeWithCatapult(catapult, worker);
-}
-
-void GameEngine::setMineralsCount(int mineralsCount)
-{
-    this->mineralsCount = mineralsCount;
+    */
 }

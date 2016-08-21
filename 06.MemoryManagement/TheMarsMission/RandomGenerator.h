@@ -7,6 +7,7 @@
 
 class RandomGenerator
 {
+private:
 public:
     RandomGenerator();
     ~RandomGenerator();

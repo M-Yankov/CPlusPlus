@@ -4,6 +4,10 @@ GameMap::GameMap() : GameMap(RandomGenerator())
 {
 }
 
+GameMap::GameMap(GameMap & gameMap) : GameMap(*gameMap.randomGenerator)
+{
+}
+
 GameMap::GameMap(RandomGenerator & generator) : isInitialized(false), mapColumns(this->defaultDimensionLength), mapRows(this->defaultDimensionLength), randomGenerator(&generator)
 {
 }
@@ -19,9 +23,20 @@ GameMap::~GameMap()
     this->isInitialized = false;
 }
 
+void GameMap::operator=(GameMap & gameMap)
+{
+    this->isInitialized = gameMap.isInitialized;
+    this->randomGenerator = gameMap.randomGenerator;
+    this->mapColumns = gameMap.mapColumns;
+    this->mapRows = gameMap.mapRows;
+    this->mapElements = gameMap.mapElements;
+}
+
 void GameMap::setItem(int row, int column, GameElement & gameElement)
 {
+    this->locker.lock();
     this->mapElements[row][column] = gameElement;
+    this->locker.unlock();
 }
 
 void GameMap::placeBaseOnDefaultPosiotion()
