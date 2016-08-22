@@ -1,9 +1,13 @@
 #ifndef WORKER_h
 #define WORKER_h
 
+#include <memory>
+#include <vector>
+
+
 #include "GameElement.h"
 #include "GameMap.h"
-#include <memory>
+#include "Cell.h"
 
 class Worker : public GameElement
 {
@@ -14,6 +18,7 @@ private:
     unsigned int column;
     unsigned int row;
     GameMap * gameMap;
+    std::vector<Cell> mineralCells;
 public:
     std::weak_ptr<Mineral> mineral;
     Worker(GameMap & initialGameMap);
@@ -23,6 +28,7 @@ public:
     std::vector<Cell> makePathToCell(Cell & cell);
     void pickUpMineral(std::shared_ptr<Mineral> sharedPointer);
     Mineral throwMineral();
+    void findMinerals();
     Cell getPosition();
     void setPosition(unsigned int newRow, unsigned int newColumn);
 };

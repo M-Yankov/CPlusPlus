@@ -12,6 +12,25 @@ Base::~Base()
 {
 }
 
+void Base::takeDamage(unsigned int reduceHealth)
+{
+    if (this->minerals.size() == 0)
+    {
+        if (this->health - reduceHealth >= 0)
+        {
+            this->health -= reduceHealth;
+        }
+        else
+        {
+            this->health = 0;
+        }
+    }
+    else
+    {
+        this->minerals.erase(this->minerals.begin());
+    }
+}
+
 unsigned int Base::getHealth()
 {
     return this->health;

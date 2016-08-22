@@ -10,7 +10,7 @@ every 3s to a random cell. One move from one cell to another of the worker costs
 When the worker is in the base print only the base symbol.<br/>
 If the catapult hits the worker - he is returned to the base. Then the Base loses 1 mineral or 20% 
 of initial health when there are 0 minerals. <br/>
-If the worker holds a mineral while it is hit, then only the mineral is destroyed.  <br/>
+If the worker holds a mineral while it is hit, the mineral is destroyed and the worker is returned to the base.  <br/>
 If the catapult hits just a mineral - nothing happens. The catapult cannot hit directly the Base. <br/>
 
 From the console you will receive N and M one line.

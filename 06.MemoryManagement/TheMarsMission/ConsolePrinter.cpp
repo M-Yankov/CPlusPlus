@@ -16,6 +16,8 @@ void ConsolePrinter::writeLine(std::string output, bool clearScreen)
         std::system("cls");
     }
 
+    // TODO: should wait and for how long
+    //  _sleep(w);
     std::cout << output << std::endl;
     this->locker.unlock();
 }

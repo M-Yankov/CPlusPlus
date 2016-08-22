@@ -23,7 +23,10 @@ private:
     GameMap gameMap;
     Base gameBase;
     int mineralsCount;
+    bool isWorkerHit;
     bool isGameEnded();
+    bool moveWorkerToMineral(std::vector<Cell> & path, Worker & worker, Cell & mineralCell);
+    void moveWorkerToBase(std::vector<Cell> & path, Worker & worker);
 public:
     GameEngine();
     GameEngine(GameEngine & gameEngine);

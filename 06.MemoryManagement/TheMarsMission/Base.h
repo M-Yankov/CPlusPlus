@@ -18,6 +18,7 @@ public:
     Base();
     Base(unsigned int initialHealth, char initialSymbol);
     ~Base();
+    void takeDamage(unsigned int reduceHealth);
     unsigned int getHealth();
     void addMineral(Mineral & mineral);
     std::string toString();

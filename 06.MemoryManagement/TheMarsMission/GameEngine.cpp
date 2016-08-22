@@ -5,6 +5,80 @@ bool GameEngine::isGameEnded()
     return this->mineralsCount <= 0 || this->gameBase.getHealth() <= 0;
 }
 
+bool GameEngine::moveWorkerToMineral(std::vector<Cell> & path, Worker & worker, Cell & mineralCell)
+{
+    bool workerReachedMineral = false;
+    for (Cell & cell : path)
+    {
+        if (this->isWorkerHit)
+        {
+            this->gameBase.takeDamage(20);
+            this->isWorkerHit = false;
+            return false;
+        }
+
+        Cell workerOldPosition = worker.getPosition();
+        worker.setPosition(cell.row, cell.column);
+
+        if (mineralCell.row == cell.row && mineralCell.column == cell.column &&
+            this->gameMap.at(mineralCell).symbol == 'M')
+        {
+            this->sharedPointerMineral = std::shared_ptr<Mineral>(new Mineral());
+            workerReachedMineral = true;
+            worker.pickUpMineral(this->sharedPointerMineral);
+        }
+
+        if (workerOldPosition.row != 0 || workerOldPosition.column != 0)
+        {
+            this->gameMap.setItem(workerOldPosition.row, workerOldPosition.column, GameElement());
+        }
+
+        this->gameMap.setItem(cell.row, cell.column, worker);
+
+        _sleep(1000);
+        this->printer->writeLine(gameMap.getMap());
+        this->printer->writeLine("", false);
+    }
+
+    return workerReachedMineral;
+}
+
+void GameEngine::moveWorkerToBase(std::vector<Cell> & path, Worker & worker)
+{
+    for (Cell & cell : path)
+    {
+        if (this->isWorkerHit)
+        {
+            this->isWorkerHit = false;
+            return;
+        }
+
+        Cell workerPosition = worker.getPosition();
+        worker.setPosition(cell.row, cell.column);
+
+        this->gameMap.setItem(workerPosition.row, workerPosition.column, GameElement());
+
+        if (cell.row != 0 || cell.column != 0)
+        {
+            this->gameMap.setItem(cell.row, cell.column, worker);
+        }
+        else
+        {
+            this->gameBase.addMineral(*this->sharedPointerMineral.get());
+            this->sharedPointerMineral.reset();
+            this->mineralsCount--;
+        }
+
+        _sleep(1000);
+
+        this->printer->writeLine(this->gameMap.getMap());
+        this->printer->writeLine("", false);
+    }
+
+    this->printer->writeLine(this->gameBase.toString(), false);
+    this->printer->writeLine("", false);
+}
+
 GameEngine::GameEngine() : GameEngine(GameMap(), Base(), new ConsolePrinter())
 {
 }
@@ -13,7 +87,7 @@ GameEngine::GameEngine(GameEngine & gameEngine) : GameEngine(gameEngine.gameMap,
 {
 }
 
-GameEngine::GameEngine(GameMap & map, Base & base, BasePrinter * outputPrinter) : gameMap(map), gameBase(base)
+GameEngine::GameEngine(GameMap & map, Base & base, BasePrinter * outputPrinter) : gameMap(map), gameBase(base), isWorkerHit(false)
 {
     // TODO: extract russian.
     std::setlocale(LC_ALL, "russian");
@@ -40,7 +114,7 @@ void GameEngine::setMineralsCount(int mineralsCount)
 
 void GameEngine::moveWorker(Worker & worker)
 {
-    while (this->mineralsCount > 0)
+    while (!this->isGameEnded())
     {
         Cell mineralCell = worker.findClosestMineralOnTheMap();
 
@@ -51,32 +125,7 @@ void GameEngine::moveWorker(Worker & worker)
 
         std::vector<Cell> path = worker.makePathToCell(mineralCell);
 
-        bool workerReachedMineral = false;
-        for (Cell & cell : path)
-        {
-            Cell workerOldPosition = worker.getPosition();
-            worker.setPosition(cell.row, cell.column);
-
-            if (mineralCell.row == cell.row && mineralCell.column == cell.column &&
-                this->gameMap.at(mineralCell).symbol == 'M')
-            {
-                this->sharedPointerMineral = std::shared_ptr<Mineral>(new Mineral());
-                workerReachedMineral = true;
-                worker.pickUpMineral(this->sharedPointerMineral);
-            }
-
-            if (workerOldPosition.row != 0 || workerOldPosition.column != 0)
-            {
-                this->gameMap.setItem(workerOldPosition.row, workerOldPosition.column, GameElement());
-            }
-
-            this->gameMap.setItem(cell.row, cell.column, worker);
-
-            _sleep(1000);
-            this->printer->writeLine(gameMap.getMap());
-            this->printer->writeLine("", false);
-        }
-
+        bool workerReachedMineral = this->moveWorkerToMineral(path, worker, mineralCell);
         // path back to base.
         if (workerReachedMineral)
         {
@@ -88,37 +137,8 @@ void GameEngine::moveWorker(Worker & worker)
 
             // add base cell
             path.push_back(Cell(0, 0));
-            int counter = 0;
-            int end = path.size();
 
-            for (Cell & cell : path)
-            {
-                counter++;
-
-                Cell workerPosition = worker.getPosition();
-                worker.setPosition(cell.row, cell.column);
-
-                this->gameMap.setItem(workerPosition.row, workerPosition.column, GameElement());
-
-                if (cell.row != 0 || cell.column != 0)
-                {
-                    this->gameMap.setItem(cell.row, cell.column, worker);
-                }
-                else
-                {
-                    this->gameBase.addMineral(*this->sharedPointerMineral.get());
-                    this->sharedPointerMineral.reset();
-                    this->mineralsCount--;
-                }
-
-                _sleep(1000);
-
-                this->printer->writeLine(this->gameMap.getMap());
-                this->printer->writeLine("", false);
-            }
-
-            this->printer->writeLine(this->gameBase.toString(), false);
-            this->printer->writeLine("", false);
+            this->moveWorkerToBase(path, worker);
         }
     }
 }
@@ -135,12 +155,12 @@ void GameEngine::strikeWithCatapult(Catapult & catapult, Worker & worker)
         }
 
         // TODO: X 
-        // The worker is hit.
         if (this->gameMap.at(strikeCell.row, strikeCell.column).symbol == 'O')
         {
-            // TODO: more logic here !
-            /*this->sharedPointerMineral.reset();
-            this->mineralsCount--;*/
+            this->sharedPointerMineral.reset();
+            this->mineralsCount--;
+            this->isWorkerHit = true;
+            // worker.setPosition(0, 0);
         }
 
         GameElement oldGameElement = this->gameMap.at(strikeCell);
@@ -173,16 +193,11 @@ void GameEngine::run(int mapRows, int mapColumns, unsigned int mineralsCount)
     _sleep(1000);
 
     Worker worker = Worker(this->gameMap);
-
+    worker.findMinerals();
 
     std::thread workerThread([&] { this->moveWorker(worker); });
     std::thread catapultThread([&] { this->strikeWithCatapult(Catapult(), worker); });
 
     workerThread.join();
     catapultThread.join();
-
-    /*
-    this->moveWorker(worker);
-    this->strikeWithCatapult(catapult, worker);
-    */
 }

@@ -18,42 +18,18 @@ Worker::~Worker()
 
 Cell Worker::findClosestMineralOnTheMap()
 {
-    int rowsLength = this->gameMap->mapElements.size();
-    if (rowsLength == 0)
+    std::vector<Cell>::iterator nextCellIterator = this->mineralCells.begin();
+
+    if (nextCellIterator == this->mineralCells.end())
     {
+        // no more minerals.
         return Cell(-1, -1);
     }
 
-    int colsLength = this->gameMap->mapElements[0].size();
-    bool topRightReached = false;
+    Cell nextCell = *nextCellIterator;
+    this->mineralCells.erase(nextCellIterator);
 
-    for (int initialRow = 0, initialCol = 0; initialRow < rowsLength;)
-    {
-        if (initialCol == colsLength - 1)
-        {
-            topRightReached = true;
-        }
-
-        for (int row = initialRow, col = initialCol; col >= 0 && row < rowsLength; col--, row++)
-        {
-            if (this->gameMap->mapElements[row][col].symbol == 'M')
-            {
-                return Cell(row, col);
-            }
-        }
-
-        if (topRightReached)
-        {
-            initialRow++;
-        }
-        else
-        {
-            initialCol++;
-        }
-    }
-
-    return Cell(-1, -1);
-    // No more minerals games ends. But should find it in better way;
+    return nextCell;
 }
 
 std::vector<Cell> Worker::makePathToCell(Cell & cell)
@@ -107,6 +83,43 @@ Mineral Worker::throwMineral()
     Mineral mineralToThrow = *this->mineral._Get();
     this->mineral.~weak_ptr();
     return mineralToThrow;
+}
+
+void Worker::findMinerals()
+{
+    int rowsLength = this->gameMap->mapElements.size();
+    if (rowsLength == 0)
+    {
+        return;
+    }
+
+    int colsLength = this->gameMap->mapElements[0].size();
+    bool topRightReached = false;
+
+    for (int initialRow = 0, initialCol = 0; initialRow < rowsLength;)
+    {
+        if (initialCol == colsLength - 1)
+        {
+            topRightReached = true;
+        }
+
+        for (int row = initialRow, col = initialCol; col >= 0 && row < rowsLength; col--, row++)
+        {
+            if (this->gameMap->mapElements[row][col].symbol == 'M')
+            {
+                this->mineralCells.push_back(Cell(row, col));
+            }
+        }
+
+        if (topRightReached)
+        {
+            initialRow++;
+        }
+        else
+        {
+            initialCol++;
+        }
+    }
 }
 
 Cell Worker::getPosition()
