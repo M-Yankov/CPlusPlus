@@ -1,4 +1,7 @@
-﻿#include "GameEngine.h"
+﻿#include <iostream>
+#include <Windows.h>
+
+#include "GameEngine.h"
 #include "FilePrinter.h"
 
 // defined only to output result in a file.
@@ -6,6 +9,14 @@
 
 int main()
 {
+    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO cursorInfo;
+
+    // set the cursor visibility
+    GetConsoleCursorInfo(out, &cursorInfo);
+    cursorInfo.bVisible = false; 
+    SetConsoleCursorInfo(out, &cursorInfo);
+
     const int Rows = 5;
     const int Columns = 8;
     const int MineralsCount = 5;

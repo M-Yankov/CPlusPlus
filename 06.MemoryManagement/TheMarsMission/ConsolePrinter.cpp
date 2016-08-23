@@ -8,7 +8,7 @@ ConsolePrinter::~ConsolePrinter()
 {
 }
 
-void ConsolePrinter::writeLine(std::string output, bool clearScreen)
+void ConsolePrinter::writeLine(std::string output, bool clearScreen, bool shouldSleep, int timeForSleepInMs)
 {
     this->locker.lock();
     if (clearScreen)
@@ -16,9 +16,12 @@ void ConsolePrinter::writeLine(std::string output, bool clearScreen)
         std::system("cls");
     }
 
-    // TODO: should wait and for how long
-    //  _sleep(w);
     std::cout << output << std::endl;
+    if (shouldSleep)
+    {
+        _sleep(timeForSleepInMs);
+    }
+
     this->locker.unlock();
 }
 

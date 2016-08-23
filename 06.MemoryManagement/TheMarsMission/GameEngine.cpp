@@ -72,28 +72,29 @@ void GameEngine::moveWorkerToBase(std::vector<Cell> & path, Worker & worker)
         _sleep(1000);
 
         this->printer->writeLine(this->gameMap.getMap());
-        this->printer->writeLine("", false);
+        this->printer->writeLine("", false, true);
     }
 
     this->printer->writeLine(this->gameBase.toString(), false);
     this->printer->writeLine("", false);
 }
 
-GameEngine::GameEngine() : GameEngine(GameMap(), Base(), new ConsolePrinter())
+// Constructors
+GameEngine::GameEngine() : GameEngine(GameMap(), Base(), new ConsolePrinter(), "russian")
 {
 }
 
-GameEngine::GameEngine(GameEngine & gameEngine) : GameEngine(gameEngine.gameMap, gameEngine.gameBase, gameEngine.printer.get())
+GameEngine::GameEngine(GameEngine & gameEngine) : GameEngine(gameEngine.gameMap, gameEngine.gameBase, gameEngine.printer.get(), gameEngine.locale)
 {
 }
 
-GameEngine::GameEngine(GameMap & map, Base & base, BasePrinter * outputPrinter) : gameMap(map), gameBase(base), isWorkerHit(false)
+GameEngine::GameEngine(GameMap & map, Base & base, BasePrinter * outputPrinter, std::string alocale) : gameMap(map), gameBase(base), isWorkerHit(false), locale(alocale)
 {
-    // TODO: extract russian.
-    std::setlocale(LC_ALL, "russian");
+    std::setlocale(LC_ALL, this->locale.c_str());
     this->printer = std::unique_ptr<BasePrinter>(outputPrinter);
 }
 
+// Destructor
 GameEngine::~GameEngine()
 {
 }
@@ -147,29 +148,41 @@ void GameEngine::strikeWithCatapult(Catapult & catapult, Worker & worker)
 {
     while (!this->isGameEnded())
     {
+        bool isWorkerHit = false;
         Cell workerCell = worker.getPosition();
-        Cell strikeCell = catapult.getCellToStrike(0, this->gameMap.getRows(), 0, this->gameMap.getColumns());
+        Cell strikeCell = catapult.getCellToStrike(workerCell.row, this->gameMap.getRows(), workerCell.column, this->gameMap.getColumns());
         while (strikeCell.column == 0 && strikeCell.row == 0)
         {
-            strikeCell = catapult.getCellToStrike(0, this->gameMap.getRows(), 0, this->gameMap.getColumns());
+            strikeCell = catapult.getCellToStrike(workerCell.row, this->gameMap.getRows(), workerCell.column, this->gameMap.getColumns());
         }
 
-        // TODO: X 
         if (this->gameMap.at(strikeCell.row, strikeCell.column).symbol == 'O')
         {
             this->sharedPointerMineral.reset();
             this->mineralsCount--;
             this->isWorkerHit = true;
-            // worker.setPosition(0, 0);
+            worker.setPosition(0, 0);
+
+            isWorkerHit = true;
         }
 
         GameElement oldGameElement = this->gameMap.at(strikeCell);
         this->gameMap.setItem(strikeCell.row, strikeCell.column, GameElement('X'));
 
         this->printer->writeLine(this->gameMap.getMap());
-        this->printer->writeLine("", false);
 
-        this->gameMap.setItem(strikeCell.row, strikeCell.column, oldGameElement);
+        if (isWorkerHit)
+        {
+            this->gameMap.setItem(strikeCell.row, strikeCell.column, GameElement());
+            this->printer->writeLine("", false);
+            this->printer->writeLine(this->gameBase.toString(), false, true);
+        }
+        else
+        {
+            this->printer->writeLine("", false, true);
+            this->gameMap.setItem(strikeCell.row, strikeCell.column, oldGameElement);
+        }
+
         _sleep(3000);
     }
 }
@@ -200,4 +213,8 @@ void GameEngine::run(int mapRows, int mapColumns, unsigned int mineralsCount)
 
     workerThread.join();
     catapultThread.join();
+
+    this->printer->writeLine(this->gameMap.getMap(), true);
+    this->printer->writeLine("", false);
+    this->printer->writeLine(this->gameBase.toString(), false, true);
 }

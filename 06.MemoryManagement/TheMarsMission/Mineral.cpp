@@ -10,7 +10,7 @@ Mineral::Mineral(unsigned int initialValue, char initialChar) : mineralValue(ini
 
 Mineral::~Mineral()
 {
-    std::cout << "Mineral destroyed." << std::endl;
+    // std::cout << "Mineral destroyed." << std::endl;
 }
 
 unsigned int Mineral::getValue()

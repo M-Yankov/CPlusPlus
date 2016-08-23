@@ -14,7 +14,7 @@ FilePrinter::~FilePrinter()
     fileStream.close();
 }
 
-void FilePrinter::writeLine(std::string output, bool clearScreen)
+void FilePrinter::writeLine(std::string output, bool clearScreen, bool shouldSleep, int timeForSleepInMs)
 {
     this->locker.lock();
     fileStream << output << std::endl;

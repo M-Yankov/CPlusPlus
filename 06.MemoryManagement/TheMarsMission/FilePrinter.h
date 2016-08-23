@@ -16,7 +16,7 @@ public:
     ~FilePrinter();
 
     // Inherited via BasePrinter
-    virtual void writeLine(std::string output = "", bool clearScreen = true) override;
+    virtual void writeLine(std::string output = "", bool clearScreen = true, bool shouldSleep = false, int timeForSleepInMs = 500) override;
     virtual void write(std::string output = "") override;
 };
 

@@ -8,7 +8,7 @@ RandomGenerator::RandomGenerator()
 
 RandomGenerator::~RandomGenerator()
 {
-    std::cout << "Random deleted" << std::endl;
+    // std::cout << "Random deleted" << std::endl;
 }
 
 int RandomGenerator::getRandomNumber(int min, int max, bool includeMax)
