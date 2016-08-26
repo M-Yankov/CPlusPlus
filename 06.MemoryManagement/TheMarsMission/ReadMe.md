@@ -83,3 +83,7 @@ B · · M
 M · · <
 Base: 1 Minerals 100 health
 </pre>
+
+Success result | Fail result
+--- | --- 
+![](/06.MemoryManagement/TheMarsMission/Images/TheMarsMissionGif1.gif?raw=true) | ![](/06.MemoryManagement/TheMarsMission/Images/TheMarsMissionFail.gif?raw=true)
