@@ -43,7 +43,7 @@ Your task:
 *   Clear console before print. :white_check_mark:
 *   Implement logic for random fire of catapult. :white_check_mark:
 *   The game ends when all minerals are collected or the base is destroyed. :white_check_mark:
-*   When game is finished print `**Base info**`.
+*   When game is finished print `**Base info**`. :white_check_mark:
 
 Sample Input:
 <pre>
