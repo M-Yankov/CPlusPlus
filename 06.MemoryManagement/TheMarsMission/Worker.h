@@ -25,6 +25,7 @@ public:
     Worker(unsigned int initialRow, unsigned int initialColumn, char symbol, GameMap & initialGameMap);
     ~Worker();
     Cell findClosestMineralOnTheMap();
+    void shrinkFoundedMinerals(const Cell & mineralToRemove);
     std::vector<Cell> makePathToCell(Cell & cell);
     void pickUpMineral(std::shared_ptr<Mineral> sharedPointer);
     Mineral throwMineral();

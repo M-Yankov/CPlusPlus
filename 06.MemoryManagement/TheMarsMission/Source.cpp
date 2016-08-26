@@ -17,8 +17,8 @@ int main()
     cursorInfo.bVisible = false; 
     SetConsoleCursorInfo(out, &cursorInfo);
 
-    const int Rows = 5;
-    const int Columns = 8;
+    const int Rows = 7;
+    const int Columns = 4;
     const int MineralsCount = 5;
 
     GameMap map = GameMap();

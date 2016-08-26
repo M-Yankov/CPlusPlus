@@ -26,10 +26,23 @@ Cell Worker::findClosestMineralOnTheMap()
         return Cell(-1, -1);
     }
 
-    Cell nextCell = *nextCellIterator;
-    this->mineralCells.erase(nextCellIterator);
+    return *nextCellIterator;
+}
 
-    return nextCell;
+void Worker::shrinkFoundedMinerals(const Cell & mineralToRemove)
+{
+    std::vector<Cell>::iterator begin = this->mineralCells.begin();
+    std::vector<Cell>::iterator end = this->mineralCells.end();
+    while (begin != end)
+    {
+        if (begin->column == mineralToRemove.column && begin->row == mineralToRemove.row)
+        {
+            this->mineralCells.erase(begin);
+            return;
+        }
+
+        begin++;
+    }
 }
 
 std::vector<Cell> Worker::makePathToCell(Cell & cell)

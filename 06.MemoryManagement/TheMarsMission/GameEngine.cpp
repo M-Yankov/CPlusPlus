@@ -12,7 +12,6 @@ bool GameEngine::moveWorkerToMineral(std::vector<Cell> & path, Worker & worker, 
     {
         if (this->isWorkerHit)
         {
-            this->gameBase.takeDamage(20);
             this->isWorkerHit = false;
             return false;
         }
@@ -130,6 +129,9 @@ void GameEngine::moveWorker(Worker & worker)
         // path back to base.
         if (workerReachedMineral)
         {
+            // remove reached mineral
+            worker.shrinkFoundedMinerals(mineralCell);
+
             // reverse the path
             std::reverse(path.begin(), path.end());
 
@@ -146,11 +148,19 @@ void GameEngine::moveWorker(Worker & worker)
 
 void GameEngine::strikeWithCatapult(Catapult & catapult, Worker & worker)
 {
+    int counter = 1;
+
     while (!this->isGameEnded())
     {
-        bool isWorkerHit = false;
+        bool isWorkerStiked = false;
         Cell workerCell = worker.getPosition();
         Cell strikeCell = catapult.getCellToStrike(workerCell.row, this->gameMap.getRows(), workerCell.column, this->gameMap.getColumns());
+
+        if (counter % 3 == 0)
+        {
+            strikeCell = catapult.getCellToStrike(workerCell.row, workerCell.row, workerCell.column, workerCell.column);
+        }
+
         while (strikeCell.column == 0 && strikeCell.row == 0)
         {
             strikeCell = catapult.getCellToStrike(workerCell.row, this->gameMap.getRows(), workerCell.column, this->gameMap.getColumns());
@@ -158,12 +168,20 @@ void GameEngine::strikeWithCatapult(Catapult & catapult, Worker & worker)
 
         if (this->gameMap.at(strikeCell.row, strikeCell.column).symbol == 'O')
         {
+            // worker hold one mineral while it is returning to the base.
+            auto debug2 = this->sharedPointerMineral.use_count();
+            if (this->sharedPointerMineral.use_count() > 0)
+            {
+                this->mineralsCount--;
+            }
+
             this->sharedPointerMineral.reset();
-            this->mineralsCount--;
             this->isWorkerHit = true;
             worker.setPosition(0, 0);
 
-            isWorkerHit = true;
+            this->gameBase.takeDamage(20);
+
+            isWorkerStiked = true;
         }
 
         GameElement oldGameElement = this->gameMap.at(strikeCell);
@@ -171,7 +189,7 @@ void GameEngine::strikeWithCatapult(Catapult & catapult, Worker & worker)
 
         this->printer->writeLine(this->gameMap.getMap());
 
-        if (isWorkerHit)
+        if (isWorkerStiked)
         {
             this->gameMap.setItem(strikeCell.row, strikeCell.column, GameElement());
             this->printer->writeLine("", false);
@@ -184,6 +202,7 @@ void GameEngine::strikeWithCatapult(Catapult & catapult, Worker & worker)
         }
 
         _sleep(3000);
+        counter++;
     }
 }
 
